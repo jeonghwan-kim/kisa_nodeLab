@@ -5,7 +5,7 @@ const should = require('should');//노드에서 제공해주는 밸리데이터
 const request = require('supertest');
 const app = require('../../app');
 
-describe('GET /users', () => {//GET users를 테스트 하기 위한 테스트 환경
+describe.skip('GET /users', () => {//GET users를 테스트 하기 위한 테스트 환경
   // body...
   it('should return 200 status code', (done)=>{
     //should.equal(true, true);//두 값이 같으면 성공

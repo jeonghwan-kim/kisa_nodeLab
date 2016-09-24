@@ -1,5 +1,5 @@
 "use strict";
-
+const models = require('../../models');
 //비지니스 로직을 담당한다.
 let users = [
   {
@@ -74,15 +74,20 @@ exports.create =  (req,res) => {
                .json({error: 'Invalid name'});
    }
 
-   const id = users.reduce((maxId, user) => {
-     return user.id > maxId ? user.id : maxId;
-   }, 0) + 1;
+  //  const id = users.reduce((maxId, user) => {
+  //    return user.id > maxId ? user.id : maxId;
+  //  }, 0) + 1;
+   //
+  //  const newUser = {
+  //    id: id,
+  //    name: name
+  //  };
+   //
+  //  users.push(newUser);
 
-   const newUser = {
-     id: id,
-     name: name
-   };
-
-   users.push(newUser);
-   res.status(201).json(newUser);
+  models.User.create({
+    name:name
+  }).then(newUser=>{
+     res.status(201).json(newUser);
+  });
 };
