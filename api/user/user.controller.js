@@ -17,7 +17,9 @@ let users = [
 ];
 
 exports.index = (req,res) => {
-    res.json(users);
+    models.User.findAll().then(users=>{
+      res.json(users);
+    })
 };
 
 exports.show = (req,res) => {
@@ -27,20 +29,30 @@ exports.show = (req,res) => {
     return res.status(400).json({error:"Invalid id"});//Bad Request  함수chain기법을 사용
   }
 
+  models.User.findOne({
+    where:{
+      id:id
+    }
+  }).then(user=>{
+    if(!user){
+      return res.status(404).json({error:'No user'});
+    }
+    res.json(user);
+  })
+
   //users
-  const user = users.filter(user => user.id===id).pop();//순회하면서 배열에 담긴 객체를 하나씩 가지고온다.
-
-  //filter를 사용하면 배열을 가지고오게되는데 배열의 0번째는 id가 동일한 user가 들어갈것이다.
-
-  //유저를 찾지 못하면 undefiend
-  if(!user){//undefiend
-    res.status(404).json({error:'No user'});
-    return;
-  }
+  // const user = users.filter(user => user.id===id).pop();//순회하면서 배열에 담긴 객체를 하나씩 가지고온다.
+  //
+  // //filter를 사용하면 배열을 가지고오게되는데 배열의 0번째는 id가 동일한 user가 들어갈것이다.
+  //
+  // //유저를 찾지 못하면 undefiend
+  // if(!user){//undefiend
+  //   res.status(404).json({error:'No user'});
+  //   return;
+  // }
 
   //resposne
 
-  res.json(user);
 };
 
 exports.destroy = (req,res)=>{
@@ -50,20 +62,28 @@ exports.destroy = (req,res)=>{
     return res.status(400).json({error:"Invalid id"});//Bad Request  함수chain기법을 사용
   }
 
-  //index
-  const userIndex=users.findIndex(function(user){
-    return user.id===id;
+  models.User.destroy({
+    where:{
+      id:id
+    }
+  }).then((result)=>{
+    console.log(result);//삭제 된 데이터의 카운트를 가지고 온다.
+    res.status(204).send();
   });
 
-  if(userIndex===-1){
-    return res.status(404).json({error:'No user'});
-  }
+  //index
+  // const userIndex=users.findIndex(function(user){
+  //   return user.id===id;
+  // });
+
+  // if(userIndex===-1){
+  //   return res.status(404).json({error:'No user'});
+  // }
 
   //remove
-  users.splice(userIndex,1);//Index 부터 몇개를 삭제할것인지.
+  //users.splice(userIndex,1);//Index 부터 몇개를 삭제할것인지.
 
   //response
-  res.status(204).send();
 };
 
 
