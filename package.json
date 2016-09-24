@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "\"한국인터넷진흥원 노드 강의\"",
   "main": "index.js",
-  "repository": "",
+  "repository": "https://github.com/sbinside/kisa_nodeLab.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"

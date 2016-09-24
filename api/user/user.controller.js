@@ -1,3 +1,5 @@
+"use strict";
+
 //비지니스 로직을 담당한다.
 let users = [
   {
@@ -18,7 +20,7 @@ exports.index = (req,res) => {
     res.json(users);
 };
 
-export.show = (req,res) => {
+exports.show = (req,res) => {
   //id
   const id=parseInt(req.params.id, 10);
   if(!id){//id 값을 이상한 값을 보내주면 인트형으로 변환하는 과정에서 NaN(Not a Number)가 들어간다.
@@ -80,6 +82,7 @@ exports.create =  (req,res) => {
      id: id,
      name: name
    };
+
    users.push(newUser);
    res.status(201).json(newUser);
 };
