@@ -1,0 +1,17 @@
+{
+  "name": "kisa_node_study",
+  "version": "1.0.0",
+  "description": "\"한국인터넷진흥원 노드 강의\"",
+  "main": "index.js",
+  "repository": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0"
+  }
+}
