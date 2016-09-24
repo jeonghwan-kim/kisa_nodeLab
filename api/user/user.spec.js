@@ -19,7 +19,7 @@ describe('GET /users', () => {//GET users를 테스트 하기 위한 테스트 �
           res.body.should.be.instanceOf(Array);
           res.body.should.be.have.length(3);
           res.body.forEach(user => {
-            user.should.be.hava.properties('id', 'name');
+            user.should.have.properties('id', 'name');
             user.id.should.be.a.Number();
             user.name.should.be.a.String();
           });
@@ -28,6 +28,41 @@ describe('GET /users', () => {//GET users를 테스트 하기 위한 테스트 �
   });
 });
 
+describe('GET /users/:id', ()=>{
+  it('should return user object', done=>{
+    request(app)
+      .get('/users/2')
+      .expect(200)
+      .end((err, res)=>{
+          if(err) throw err;
+          res.body.should.have.properties('id', 'name');
+          res.body.id.should.be.a.Number();
+          res.body.name.should.be.a.String();
 
+          done();
+      });
+  });
+
+  it('should return 400 on invalid id', done=>{
+    request(app)
+      .get('/users/abs')
+      .expect(400)
+      .end((err, res)=>{
+          if(err) throw err;
+           res.body.should.have.property('error');
+          done();
+      });
+  });
+
+  it('should return 404 on no ', done=>{
+    request(app)
+      .get('/users/4')
+      .expect(404)
+      .end((err, res)=>{
+          if(err) throw err;
+          res.body.should.have.property('error');
+          done();
+      });
+  });
 
 })
