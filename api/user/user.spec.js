@@ -66,3 +66,72 @@ describe('GET /users/:id', ()=>{
   });
 
 })
+
+describe('DELETE /users/:id', () => {
+  it('should return 204 status code', done=> {
+    request(app)
+      .delete('/users/2')
+      .expect(204)
+      .end((err, res) => {
+        if(err) throw err;
+        done();
+      });
+  });
+
+  it('should return 400 status code', done=>{
+    request(app)
+      .delete('/users/abc')
+      .expect(400)
+      .end((err, res)=>{
+        if(err) throw err;
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+
+  it('should return 404 status code', done=>{
+    request(app)
+      .delete('/users/4')
+      .expect(404)
+      .end((err, res)=>{
+        if(err) throw err;
+        res.body.should.have.property('error');
+        done();
+      });
+  });
+});
+
+
+
+describe('POST /users', () => {
+  // body...
+  const name = "psfss";
+  it('should return 201 status code', (done)=>{
+    //should.equal(true, true);//두 값이 같으면 성공
+    //(true).should.be.equal(true);
+    request(app)
+      .post('/users')
+      .send({name:name})
+      .expect(201)
+      .end((err, res)=>{
+          if(err) throw err;
+
+          res.body.should.have.properties('id', 'name');
+            res.body.name.should.be.equal(name);
+
+          done();
+      });
+  });
+
+  it('should return 400 with empty name ', done=>{
+    request(app)
+      .post('/users')
+      .send({name:'         '})
+      .expect(400)
+      .end((err, res)=>{
+          if(err) throw err;
+          res.body.should.have.properties('error');
+          done();
+      });
+  })
+});
