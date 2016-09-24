@@ -78,6 +78,18 @@ exports.create =  (req,res) => {
      return user.id > maxId ? user.id : maxId;
    }, 0) + 1;
 
+   users.reduce((maxId, user) => {
+     return user.id > maxId ? user.id : maxId;
+   }, 0) + 1;
+
+
+   user.reduce(function(maxId, user){
+     if(user.id>maxId){
+       maxId=user.id;
+     }
+     return maxId
+   }, 0);
+
    const newUser = {
      id: id,
      name: name

@@ -5,13 +5,18 @@
   "main": "index.js",
   "repository": "https://github.com/sbinside/kisa_nodeLab.git",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "node_modules/.bin/mocha api/**/*.spec.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
   }
 }
