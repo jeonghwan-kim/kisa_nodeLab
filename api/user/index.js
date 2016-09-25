@@ -6,12 +6,14 @@ const ctrl = require("./user.controller");
 //.....
 
 
-router.get('/',ctrl.index);
+router.get('/', ctrl.index);
 
 router.get('/:id', ctrl.show);
 
 router.delete('/:id', ctrl.destroy)
 
-router.post('/',ctrl.create);
+router.post('/', ctrl.create);
+
+router.put('/:id', ctrl.update);
 
 module.exports = router;

@@ -1,25 +1,25 @@
 {
-  "name": "kisa_node_study",
-  "version": "1.0.0",
-  "description": "\"한국인터넷진흥원 노드 강의\"",
-  "main": "index.js",
-  "repository": "https://github.com/sbinside/kisa_nodeLab.git",
-  "scripts": {
-    "start": "node app.js",
-    "test": "node_modules/.bin/mocha api/**/*.spec.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.15.2",
-    "express": "^4.14.0",
-    "mysql": "^2.11.1",
-    "sequelize": "^3.24.3",
-    "swagger-ui": "^2.2.4"
-  },
-  "devDependencies": {
-    "mocha": "^3.0.2",
-    "should": "^11.1.0",
-    "supertest": "^2.0.0"
-  }
+    "name": "kisa_node_study",
+    "version": "1.0.0",
+    "description": "\"한국인터넷진흥원 노드 강의\"",
+    "main": "index.js",
+    "repository": "https://github.com/sbinside/kisa_nodeLab.git",
+    "scripts": {
+        "start": "node app.js",
+        "test": "node_modules/.bin/mocha api/**/*.spec.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.15.2",
+        "express": "^4.14.0",
+        "mysql": "^2.11.1",
+        "sequelize": "^3.24.3",
+        "swagger-ui": "^2.2.4"
+    },
+    "devDependencies": {
+        "mocha": "^3.0.2",
+        "should": "^11.1.0",
+        "supertest": "^2.0.0"
+    }
 }
