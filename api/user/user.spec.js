@@ -9,6 +9,7 @@ const models = require('../../models');
 
 describe.skip('GET /users', () => { //GET users를 테스트 하기 위한 테스트 환경
     // body...
+
     it('should return 200 status code', (done) => {
         //should.equal(true, true);//두 값이 같으면 성공
         //(true).should.be.equal(true);
@@ -101,20 +102,38 @@ describe('GET /users/:id', () => {
                 done();
             });
     });
-
-    after('clear up database', (done) => {//이부분을 안하게 되면 테이블에 데이터가 계속 쌓이게 된다.
-        syncDatabase().then(() => done());
-    });
-
 })
 
-describe.skip('DELETE /users/:id', () => {
+describe('GET /users', () => {
+
+    it('should return 200 status code', done => {
+        request(app)
+            .get('/users')
+            .expect(200)
+            .end((err, res) => {
+                if (err) throw err;
+
+                res.body.should.be.instanceOf(Array);
+                res.body.should.be.have.length(3);
+                res.body.forEach(user => {
+                    user.should.have.properties('id', 'name');
+                    user.id.should.be.a.Number();
+                    user.name.should.be.a.String();
+                    console.log(user); //데이터 확인
+                });
+                done();
+            });
+    });
+});
+
+describe('DELETE /users/:id', () => {
     it('should return 204 status code', done => {
         request(app)
             .delete('/users/2')
             .expect(204)
             .end((err, res) => {
                 if (err) throw err;
+                console.log(res.body);
                 done();
             });
     });
@@ -140,9 +159,36 @@ describe.skip('DELETE /users/:id', () => {
                 done();
             });
     });
+
+    before('sync database', (done) => {
+        syncDatabase().then(() => done());
+    });
 });
 
+describe('GET /users', () => {
 
+
+    it('should return 200 status code', done => {
+        request(app)
+            .get('/users')
+            .expect(200)
+            .end((err, res) => {
+                if (err) throw err;
+
+                res.body.should.be.instanceOf(Array);
+                //res.body.should.be.have.length(3);
+                res.body.forEach(user => {
+                    user.should.have.properties('id', 'name');
+                    user.id.should.be.a.Number();
+                    user.name.should.be.a.String();
+                    console.log(user); //데이터 확인
+                });
+                done();
+            });
+    });
+
+
+});
 
 describe.skip('POST /users', () => {
     // body...
