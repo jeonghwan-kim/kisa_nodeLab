@@ -5,6 +5,7 @@ const should = require('should'); //노드에서 제공해주는 밸리데이터
 const request = require('supertest');
 const app = require('../../app');
 const syncDatabase = require('../../bin/sync-database');
+const models = require('../../models');
 
 describe.skip('GET /users', () => { //GET users를 테스트 하기 위한 테스트 환경
     // body...
@@ -36,8 +37,33 @@ describe.only('GET /users', () => {
     });
   });
 
-  it('should return 200 status code', () => {
-    // ...
+  const users = [
+    {name:'alice'},
+    {name:'bek'},
+    {name: 'chris'}
+  ];
+
+  before('insert 3 users into database', done=>{
+    models.User.bulkCreate(users).then(()=>done());
+  })
+
+  it('should return 200 status code', done => {
+    request(app)
+        .get('/users')
+        .expect(200)
+        .end((err, res) => {
+            if (err) throw err;
+
+            res.body.should.be.instanceOf(Array);
+            res.body.should.be.have.length(3);
+            res.body.forEach(user => {
+                user.should.have.properties('id', 'name');
+                user.id.should.be.a.Number();
+                user.name.should.be.a.String();
+                //console.log(user); 데이터 확인
+            });
+            done();
+        });
   });
 });
 
