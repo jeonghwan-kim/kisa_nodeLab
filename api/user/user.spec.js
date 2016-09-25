@@ -4,6 +4,7 @@
 const should = require('should'); //노드에서 제공해주는 밸리데이터
 const request = require('supertest');
 const app = require('../../app');
+const syncDatabase = require('../../bin/sync-database');
 
 describe.skip('GET /users', () => { //GET users를 테스트 하기 위한 테스트 환경
     // body...
@@ -26,6 +27,18 @@ describe.skip('GET /users', () => { //GET users를 테스트 하기 위한 테�
                 done();
             });
     });
+});
+
+describe.only('GET /users', () => {
+  before('sync database', (done) => {
+    syncDatabase().then(() => {
+      done();
+    });
+  });
+
+  it('should return 200 status code', () => {
+    // ...
+  });
 });
 
 describe('GET /users/:id', () => {
