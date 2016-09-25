@@ -104,24 +104,6 @@ describe('GET /users/:id', () => {
     });
 })
 
-describe('PUT /users/:id', () => {
-  // body...
-  const name='hyunjun1213';
-  it('should return 200 status code', done=>{
-    request(app)
-    .put('/users/2')
-    .send({
-          name: name
-    })
-    .expect(203)
-    .end((err,res) => {
-      if(err) throw err;
-      console.log(res.body);
-      done();
-    });
-  });
-});
-
 describe('GET /users', () => {
 
     it('should return 200 status code', done => {
@@ -143,7 +125,23 @@ describe('GET /users', () => {
             });
     });
 });
-
+describe('PUT /users/:id', () => {
+  // body...
+  const name='hyunjun1213';
+  it('should return 200 status code', done=>{
+    request(app)
+    .put('/users/2')
+    .send({
+          name: name
+    })
+    .expect(203)
+    .end((err,res) => {
+      if(err) throw err;
+      console.log(res.body);
+      done();
+    });
+  });
+});
 
 
 describe('DELETE /users/:id', () => {
