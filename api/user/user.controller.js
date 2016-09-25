@@ -137,8 +137,11 @@ exports.update = (req, res) => {
     }, {
         where: {
             id: id
-        }
+        },
+        returning: true
     }).then(result => {
-        res.status(203).json(result[1][0]); //수정된 status와 result수정된데이터를 보내줌
+        res.status(203).json({
+            success: "update complete"
+        }); //수정된 status와 result수정된데이터를 보내줌
     });
 }

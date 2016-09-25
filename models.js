@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('node_api_codlab', 'root', 'guswns12', {
-    host: '183.109.83.141',
-    port: 5070,
+const config = require('./config/environment');
+const sequelize = new Sequelize(config.mysql.database, config.mysql.username, config.mysql.password, {
+    host: config.mysql.host,
+    port: config.mysql.port,
     pool: {
         max: 5,
         min: 0,
