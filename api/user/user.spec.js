@@ -30,19 +30,13 @@ describe.skip('GET /users', () => { //GET users를 테스트 하기 위한 테�
     });
 });
 
-describe.only('GET /users', () => {
-    before('sync database', (done) => {
-        syncDatabase().then(() => {
-            done();
-        });
-    });
-
+describe('GET /users', () => {
     const users = [{
-        name: 'alice'
+        name: 'alice2'
     }, {
-        name: 'bek'
+        name: 'bek2'
     }, {
-        name: 'chris'
+        name: 'chris2'
     }];
 
     before('insert 3 users into database', done => {
@@ -68,9 +62,7 @@ describe.only('GET /users', () => {
             });
     });
 
-    after('clear up database', (done) => {
-        syncDatabase().then(() => done());
-    });
+
 });
 
 describe('GET /users/:id', () => {
@@ -83,7 +75,7 @@ describe('GET /users/:id', () => {
                 res.body.should.have.properties('id', 'name');
                 res.body.id.should.be.a.Number();
                 res.body.name.should.be.a.String();
-
+                console.log(res.body);
                 done();
             });
     });
@@ -110,9 +102,13 @@ describe('GET /users/:id', () => {
             });
     });
 
+    after('clear up database', (done) => {//이부분을 안하게 되면 테이블에 데이터가 계속 쌓이게 된다.
+        syncDatabase().then(() => done());
+    });
+
 })
 
-describe('DELETE /users/:id', () => {
+describe.skip('DELETE /users/:id', () => {
     it('should return 204 status code', done => {
         request(app)
             .delete('/users/2')
@@ -148,7 +144,7 @@ describe('DELETE /users/:id', () => {
 
 
 
-describe('POST /users', () => {
+describe.skip('POST /users', () => {
     // body...
     const name = "psfss";
     it('should return 201 status code', (done) => {
