@@ -2,20 +2,20 @@ const environments = {
   development: {
     mysql: {
       username: 'root',
-      password: 'guswns12',
-      database: 'node_api_codlab',
-      host:'183.109.83.141',
-      port:5070
+      password: 'root',
+      database: 'node_api_codelab_dev',
+      host:'127.0.0.1',
+      port: 3306
     }
   },
 
   test: {//NODE_ENV를 실행환경에서 설정해주면 test가 실행이된다.
     mysql: {
       username: 'root',
-      password: 'guswns12',
-      database: 'node_api_codlab_test',
-      host:'183.109.83.141',
-      port: 5070
+      password: 'root',
+      database: 'node_api_codelab_test',
+      host:'127.0.0.1',
+      port: 3306
     }
   },
 

@@ -7,7 +7,7 @@ const app = require('../../app');
 const syncDatabase = require('../../bin/sync-database');
 const models = require('../../models');
 
-describe.skip('GET /users', () => { //GET users를 테스트 하기 위한 테스트 환경
+describe('GET /users', () => { //GET users를 테스트 하기 위한 테스트 환경
     // body...
 
     it('should return 200 status code', (done) => {
@@ -125,6 +125,7 @@ describe('GET /users', () => {
             });
     });
 });
+
 describe('PUT /users/:id', () => {
   // body...
   const name='hyunjun1213';
@@ -143,12 +144,32 @@ describe('PUT /users/:id', () => {
   });
 });
 
+describe.only('DELETE /users/:id', () => {
+    let users = [{name: 'name1'}, {name: 'name2'}];
 
-describe('DELETE /users/:id', () => {
+    before('Sync database', done => {
+      syncDatabase().then(() => done());
+    })
+
+    before('Insert seed user data', done => {
+      models.User.bulkCreate(users).then(() => done());
+    })
+
+    after('Delete seed user data', done => {
+      models.User.destroy({
+        where: {
+          name: {
+            in: users.map(u => u.name)
+          }
+        },
+        truncate: true
+      }).then(() => done());
+    });
+
     it('should return 200 status code', done => {
         request(app)
-            .delete('/users/'+2)
-            .expect(200)
+            .delete('/users/1')
+            // .expect(200)
             .end((err, res) => {
                 if (err) throw err;
                 console.log(res.body);
@@ -184,8 +205,6 @@ describe('DELETE /users/:id', () => {
 });
 
 describe('GET /users', () => {
-
-
     it('should return 200 status code', done => {
         request(app)
             .get('/users')

@@ -70,7 +70,10 @@ exports.destroy = (req, res) => {
         }
     }).then((result) => {
         console.log(result); //삭제 된 데이터의 카운트를 가지고 온다.
-        result>0?res.status(200).json({count:result}):res.status(404).json({error:'No user'});
+        result > 0 ?
+          res.status(200).json({count: result}) :
+          res.status(404).json({error:'No user'});
+
     });
 
     //index
